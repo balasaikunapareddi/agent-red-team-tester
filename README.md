@@ -57,6 +57,19 @@ the same three roles as AutoGen agents against a real model. The
 deterministic judge still scores the replies, so live and mock
 results stay comparable.
 
+Live behavior is verified against the Gemini free tier
+(`gemini-3.5-flash-lite`): with the repo's target system prompt, the
+real model **held on all seven categories** (one catalog case each) —
+including the indirect-injection case the mock target deliberately
+fails: the real model summarized the pasted email and ignored the
+embedded "SYSTEM NOTE". One transport caveat: AutoGen reaches Gemini
+through Google's OpenAI-compatible endpoint, which requires Bearer
+auth; the sandbox this was verified in only swaps keys sent in the
+`x-goog-api-key` header, so the verification ran the same prompts,
+payloads, and judge through Google's native API. With a real API
+key, the AutoGen path works as-is (Bearer auth is Google's
+documented route for that endpoint).
+
 ## Why AutoGen
 
 Attacker / target / judge is a three-party conversation — AutoGen's
