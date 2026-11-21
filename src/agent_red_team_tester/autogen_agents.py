@@ -31,7 +31,7 @@ def _gemini_client() -> "OpenAIChatCompletionClient":
     if not api_key:
         raise RuntimeError("live mode requires GEMINI_API_KEY")
     return OpenAIChatCompletionClient(
-        model="gemini-2.0-flash",
+        model=os.environ.get("GEMINI_MODEL", "gemini-3.5-flash-lite"),
         api_key=api_key,
         base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
         model_info={
