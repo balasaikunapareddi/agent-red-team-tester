@@ -33,6 +33,24 @@ flowchart LR
 - **Report** (`report.py`) — aggregates by category, lists worst
   failures first, and maps each failing category to a concrete fix.
 
+## Project structure
+
+```
+src/agent_red_team_tester/
+  agent.py          RedTeamAgent — the attacker → target → judge loop
+  prompts.py        system prompts for the three roles (behavior only)
+  catalog.py        attack catalog: 7 categories, 14 cases, rubric markers
+  attacker.py       CatalogAttacker (mock-mode attack source)
+  target.py         MockTarget — deterministic target with planted weaknesses
+  judge.py          deterministic verdict scoring (held / partial / violated)
+  tools.py          typed tool schemas shared by mock and live modes
+  conversation.py   run_red_team() entry point (wraps RedTeamAgent)
+  autogen_agents.py live mode: the three roles as AutoGen agents
+  report.py         category scores, worst failures, hardening checklist
+  demo.py           one-command demo (red-team-demo)
+tests/              26 offline tests
+```
+
 ## Quickstart
 
 ```bash
